@@ -1,1 +1,3 @@
-<?php phpinfo(); ?>
+<?php
+    header("Location:app/list.php");
+?>
