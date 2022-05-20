@@ -6,7 +6,7 @@
     private $con;
     private static $instance;
 
-    public function __construct(){
+    public function __construct() {
       // Vacia para hacer un "singleton"
     }
 
@@ -48,7 +48,7 @@
     }
 
     //obtenemos usuarios de una tabla con postgreSql
-    public function get($id){
+    public function get($id) {
       try {
         $q = $this->con->prepare('SELECT * FROM auto WHERE id = ?');
         $q->bindParam(1, $id, PDO::PARAM_INT);
@@ -72,7 +72,7 @@
       return $q->fetch(PDO::FETCH_OBJ);
     }
 
-    public function delete($id){
+    public function delete($id) {
       try {
         $q = $this->con->prepare('DELETE FROM auto WHERE id = ?');
         $q->bindParam(1, $id, PDO::PARAM_INT);
