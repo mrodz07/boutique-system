@@ -4,24 +4,23 @@
 
   class CarManager implements ICarManager {
     private $con;
-    private static $instance;
+    private static $instance = null;
 
-    public function __construct() {
-      // Vacia para hacer un "singleton"
+    private function __construct() {
+      $this->con = new Database();  
     }
 
     public static function getInstance() {
-      if (self::$instance == null) {
+      if (self::$instance === null) {
         self::$instance = new CarManager();
-        $this->con = new Database();  
       }
-     
+
       return self::$instance;
     }
 
     //insertamos usuarios en una tabla con postgreSql
     public function save($nombre, $id_marca, $ac) {
-      try{
+      try {
         $q = $this->con->prepare('INSERT INTO auto (id, nombre, id_marca, aire_acondicionado) values (DEFAULT, ?, ?, ?)');
         $q->bindParam(1, $nombre, PDO::PARAM_STR);
         $q->bindParam(2, $id_marca, PDO::PARAM_STR);
@@ -85,7 +84,7 @@
     }
 
     public static function baseurl() {
-      return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST']";
+      return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
     }
 
     public function checkUser($id) {
