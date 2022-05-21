@@ -7,7 +7,7 @@
     private static $instance = null;
 
     private function __construct() {
-      $this->con = new Database();  
+      $this->con = Database::getInstance();
     }
 
     public static function getInstance() {
