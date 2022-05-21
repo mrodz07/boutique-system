@@ -1,12 +1,10 @@
 <?php
-	require_once "../models/User.php";
-	$db = new Database;
-	$user = new User($db);
-	$id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT);
+	require_once "../models/CarManager.php";
+  $carManager = CarManager::getInstance();
+	$id = filter_input(INPUT_GET, 'car', FILTER_VALIDATE_INT);
 
 	if( $id ){
-		$user->setId($id);
-		$user->delete();
+		$carManager->delete($id);
 	}
-	header("Location:" . User::baseurl() . "app/list.php");
+	header("Location:" . CarManager::baseurl() . "/app/list.php");
 ?>
