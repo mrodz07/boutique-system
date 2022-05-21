@@ -21,20 +21,20 @@
           <table class="table table-striped">
             <tr>
               <th>Id</th>
-              <th>Car</th>
+              <th>Nombre</th>
               <th>Marca</th>
               <th>Aire acondicionado</th>
             </tr>
             
-            <?php foreach( $cars as $car ) { ?>
+            <?php foreach($cars as $car) { ?>
               <tr>
                 <td><?php echo $car->id ?></td>
                 <td><?php echo $car->nombre ?></td>
                 <td><?php echo $car->id_marca ?></td>
                 <td><?php echo $car->aire_acondicionado ?></td>
                 <td>
-                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/edit.php?user=<?php echo $car>id ?>">Edit</a> 
-                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/delete.php?user=<?php echo $car>id ?>">Delete</a>
+                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/edit.php?user=<?php echo $car->id ?>">Edit</a> 
+                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/delete.php?user=<?php echo $car->id ?>">Delete</a>
                 </td>
               </tr>
             <?php } ?>

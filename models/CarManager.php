@@ -68,7 +68,7 @@
       } catch(PDOException $e){
           echo $e->getMessage(); }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function delete($id) {
