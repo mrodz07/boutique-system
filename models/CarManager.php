@@ -32,6 +32,17 @@
       }
     }
 
+    public function saveBrand($nombre) {
+      try {
+        $q = $this->con->prepare('INSERT INTO marca (id, nombre) values (DEFAULT, ?)');
+        $q->bindParam(1, $nombre, PDO::PARAM_STR);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          echo  $e->getMessage();
+      }
+    }
+
     public function update($id, $nombre, $id_marca, $ac) {
       try {
         $q = $this->con->prepare('UPDATE auto SET nombre = ?, marca = ?, aire_acondicionado = ? WHERE id = ?');

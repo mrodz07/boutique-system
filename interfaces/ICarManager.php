@@ -1,6 +1,7 @@
 <?php
 	interface ICarManager{
     public function save($id, $id_marca, $ac);
+    public function saveBrand($nombre);
     public function get($id);
     public function getAll();
     public function getAllBrands();
