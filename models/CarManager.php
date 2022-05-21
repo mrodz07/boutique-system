@@ -71,6 +71,19 @@
       return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getBrand($id) {
+      try {
+        $q = $this->con->prepare('SELECT * FROM marca WHERE id = ?');
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
     public function getAllBrands() {
       try {
         $q = $this->con->prepare('SELECT * FROM marca');
