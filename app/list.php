@@ -35,6 +35,7 @@
                 <td><?php echo $carManager->getBrand($car->id_marca)->nombre ?></td>
                 <td><?php echo $car->aire_acondicionado > 0 ? 'Sí' : 'No' ?></td>
                 <td>
+                    <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/details.php?car=<?php echo $car->id ?>">Details</a> 
                     <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/edit.php?car=<?php echo $car->id ?>">Edit</a> 
                     <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/delete.php?car=<?php echo $car->id ?>">Delete</a>
                 </td>
