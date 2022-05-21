@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Listado de autos</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
   <body>
     <?php
@@ -12,18 +13,18 @@
       $cars = $carManager->getAll();        
     ?>
     <div class="container">
-      <div class="col-lg-12">
-        <h2 class="text-center text-primary">Car List</h2>
-          <div class="col-lg-1 pull-right" style="margin-bottom: 10px">
-            <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>/app/add.php">Add car</a>
+      <h2 class="main-title">Car List</h2>
+          <div class="button-container">
+            <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/add.php">Add car</a>
           </div>
           <?php if(!empty($cars)) { ?>
-          <table class="table table-striped">
+          <table class="table">
             <tr>
               <th>Id</th>
               <th>Nombre</th>
               <th>Marca</th>
               <th>Aire acondicionado</th>
+              <th>Opciones</th>
             </tr>
             
             <?php foreach($cars as $car) { ?>
@@ -33,8 +34,8 @@
                 <td><?php echo $car->id_marca ?></td>
                 <td><?php echo $car->aire_acondicionado ?></td>
                 <td>
-                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/edit.php?user=<?php echo $car->id ?>">Edit</a> 
-                    <a class="btn btn-info" href="<?php echo CarManager::baseurl() ?>app/delete.php?user=<?php echo $car->id ?>">Delete</a>
+                    <a class="button info" href="<?php echo CarManager::baseurl() ?>app/edit.php?user=<?php echo $car->id ?>">Edit</a> 
+                    <a class="button info" href="<?php echo CarManager::baseurl() ?>app/delete.php?user=<?php echo $car->id ?>">Delete</a>
                 </td>
               </tr>
             <?php } ?>
@@ -42,7 +43,7 @@
           <?php
             } else {
           ?>
-            <div class="alert alert-danger" style="margin-top: 100px">There are 0 registered users</div>
+            <div class="msg alert">There are 0 registered users</div>
           <?php
             }
           ?>
