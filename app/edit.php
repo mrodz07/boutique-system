@@ -2,38 +2,54 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Listado de usuarios</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <title>Editar auto</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
 </head>
 <body>
     <?php
-        require_once "../models/User.php";
-        $id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT);
-        if( ! $id ){
-            header("Location:" . User::baseurl() . "app/list.php");
+        require_once "../models/CarManager.php";
+        $carManager = CarManager::getInstance();
+        $id = filter_input(INPUT_GET, 'car', FILTER_VALIDATE_INT);
+        if(!$id) {
+            header("Location:" . $carManager->baseurl() . "/app/list.php");
         }
-        $db = new Database;
-        $newUser = new User($db);
-        $newUser->setId($id);
-        $user = $newUser->get();
-        $newUser->checkUser($user);
+        $carManager->checkCar($id);
+        $car = $carManager->get($id);
+        $brands = $carManager->getAllBrands();        
     ?>
     <div class="container">
-        <div class="col-lg-12">
-            <h2 class="text-center text-primary">Edit user <?php echo $user->username ?></h2>
-            <form action="<?php echo User::baseurl() ?>app/update.php" method="POST">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" value="<?php echo $user->username ?>" class="form-control" id="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" value="<?php echo $user->password ?>" class="form-control" id="password" placeholder="Password">
-                </div>
-                <input type="hidden" name="id" value="<?php echo $user->id ?>" />
-                <input type="submit" name="submit" class="btn btn-default" value="Update user" />
-            </form>
-        </div>
+      <h2 class="main-title">Edit car</h2>
+      <form action="<?php echo CarManager::baseurl() ?>/app/update.php" method="POST">
+          <div class="form-group">
+              <label for="username">Nombre</label>
+              <input type="text" name="nombre" value="<?php echo $car->nombre ?>" class="form-control" id="nombre" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <p>Brand</p>
+            <select name="id_marca">
+              <?php foreach($brands as $brand) { ?>
+                <?php if ($car->id_marca == $brand->id) { ?>
+                  <option value="<?php echo $brand->id?>" selected><?php echo $brand->nombre?></option>
+                <?php } else { ?>
+                  <option value="<?php echo $brand->id?>"><?php echo $brand->nombre?></option>
+                <?php } ?>
+              <?php } ?>
+            </select>
+          </div>
+          <div class="form-group">
+              <p>Air conditioning</p>
+              <?php if ($car->aire_acondicionado) {?>
+                <input type="radio" name="ac" value="true" class="form-control" id="ac" checked="checked">True</input>
+                <input type="radio" name="ac" value="false" class="form-control" id="ac">False</input>
+              <?php } else { ?>
+                <input type="radio" name="ac" value="true" class="form-control" id="ac">True</input>
+                <input type="radio" name="ac" value="false" class="form-control" id="ac" checked="checked">False</input>
+              <?php } ?>
+          </div>
+          <input type="hidden" name="id" value="<?php echo $car->id ?>" />
+          <input type="submit" name="submit" class="button info" value="Update car"/>
+      </form>
     </div>
 </body>
 </html>

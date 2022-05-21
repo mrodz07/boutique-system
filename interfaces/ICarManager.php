@@ -8,7 +8,7 @@
     public function getBrand($id);
     public function update($id, $nombre, $id_marca, $ac);
     public function delete($id);
-    public function checkUser($id);
+    public function checkCar($id);
     public static function getInstance();
 	}
 ?>

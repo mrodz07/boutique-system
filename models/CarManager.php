@@ -45,7 +45,7 @@
 
     public function update($id, $nombre, $id_marca, $ac) {
       try {
-        $q = $this->con->prepare('UPDATE auto SET nombre = ?, marca = ?, aire_acondicionado = ? WHERE id = ?');
+        $q = $this->con->prepare('UPDATE auto SET nombre = ?, id_marca = ?, aire_acondicionado = ? WHERE id = ?');
         $q->bindParam(1, $nombre, PDO::PARAM_STR);
         $q->bindParam(2, $id_marca, PDO::PARAM_STR);
         $q->bindParam(3, $ac, PDO::PARAM_STR);
@@ -122,9 +122,9 @@
       return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
     }
 
-    public function checkUser($id) {
+    public function checkCar($id) {
       if(!$id) {
-        header("Location:" . CarManager::baseurl() . "app/list.php");
+        header("Location:" . CarManager::baseurl() . "/app/list.php");
       }
     }
   }
