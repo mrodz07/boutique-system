@@ -1,22 +1,20 @@
 <?php
-	require_once "../models/User.php";
+	require_once "../models/CarManager.php";
 	if (empty($_POST['submit'])){
-	      header("Location:" . User::baseurl() . "app/list.php");
-	      exit;
+    header("Location:" . CarManager::baseurl() . "/app/list.php");
+    exit;
 	}
 
 	$args = array(
-	    'username'  => FILTER_SANITIZE_STRING,
-	    'password'  => FILTER_SANITIZE_STRING,
+	    'nombre'  => FILTER_SANITIZE_STRING,
+	    'id_marca'  => FILTER_SANITIZE_STRING,
+	    'ac'  => FILTER_SANITIZE_STRING,
 	);
 
 	$post = (object)filter_input_array(INPUT_POST, $args);
 
-	$db = new Database;
-	$user = new User($db);
-	$user->setUsername($post->username);
-	$user->setPassword($post->password);
-	$user->save();
-	header("Location:" . User::baseurl() . "app/list.php");
+	$carManager = CarManager::getInstance();
+	$carManager->save($post->nombre, $post->id_marca, $post->ac);
+	header("Location:" . CarManager::baseurl() . "/app/list.php");
 
 ?>

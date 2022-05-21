@@ -71,6 +71,17 @@
       return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getAllBrands() {
+      try {
+        $q = $this->con->prepare('SELECT * FROM marca');
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage(); }
+
+      return $q->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function delete($id) {
       try {
         $q = $this->con->prepare('DELETE FROM auto WHERE id = ?');
