@@ -1,6 +1,6 @@
 <?php
 
-class PSQLDB extends PDO {
+class MSQLDB extends PDO {
   //instance
   private static $instance = null;
 	//dbname
@@ -11,13 +11,11 @@ class PSQLDB extends PDO {
 	private $user = "tec";
 	//password user
 	private $pass = "tecpass";
-	//port
-	private $port = 5432;
  
-	//connect with postgresql and pdo
+	//connect with mysql and pdo
 	private function __construct(){
 	  try {
-	    $this->instance = parent::__construct("pgsql:host=$this->host;port=$this->port;dbname=$this->dbname;user=$this->user;password=$this->pass");
+	    $this->instance = parent::__construct("mysql:host=$this->host;dbname=$this->dbnamme;charset=UTF8");
 	  } catch(PDOException $e) {
 	      echo  $e->getMessage();
 	  } 
@@ -25,7 +23,7 @@ class PSQLDB extends PDO {
 
   public static function getInstance() {
     if (self::$instance === null) {
-      self::$instance = new PSQLDB();
+      self::$instance = new MSQLDB();
     }
 
     return self::$instance;
