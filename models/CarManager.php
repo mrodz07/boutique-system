@@ -1,5 +1,5 @@
 <?php
-  require_once("../db/Database.php");
+  require_once("../db/PSQLDB.php");
   require_once("../interfaces/ICarManager.php");
 
   class CarManager implements ICarManager {
