@@ -7,7 +7,7 @@
     private static $instance = null;
 
     private function __construct() {
-      $this->con = Database::getInstance();
+      $this->con = PSQLDB::getInstance();
     }
 
     public static function getInstance() {
