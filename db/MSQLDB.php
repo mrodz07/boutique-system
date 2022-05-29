@@ -8,9 +8,9 @@ class MSQLDB extends PDO {
  
 	//connect with mysql and pdo
 	private function __construct(){
-    $config =  = parse_ini_file('psql.ini');
+    $config = parse_ini_file('mysql.ini');
 	  try {
-	    $instance = parent::__construct("pgsql:host=" . $config['host'] . ";port=" . $config['port'] . ";dbname=" . $config['dbname'] . ";user=" . $config['user'] . ";password=" . $config['password']);
+	    $instance = parent::__construct("mysql:host=" . $config['host'] . ";port=" . $config['port'] . ";dbname=" . $config['dbname'] . ";user=" . $config['user'] . ";password=" . $config['password']);
 	  } catch(PDOException $e) {
 	      echo  $e->getMessage();
 	  } 
