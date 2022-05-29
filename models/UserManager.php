@@ -19,11 +19,12 @@
     }
 
     //insertamos usuarios en una tabla con mysql
-    public function save($username, $password) {
+    public function save($username, $password, $isAdmin) {
       try {
-        $q = $this->con->prepare('INSERT INTO usuario_contrasena VALUES(DEFAULT, ?, ?)');
+        $q = $this->con->prepare('INSERT INTO usuario_contrasena VALUES(DEFAULT, ?, ?, ?)');
         $q->bindParam(1, $username, PDO::PARAM_STR);
         $q->bindParam(2, $password, PDO::PARAM_STR);
+        $q->bindParam(3, $isAdmin, PDO::PARAM_INT);
         $q->execute();
         $this->con->close();
       } catch(PDOException $e) {
