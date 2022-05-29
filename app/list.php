@@ -20,8 +20,16 @@
   <body>
     <?php
       require_once "../models/CarManager.php";
+      require_once "../models/UserManager.php";
       $carManager = CarManager::getInstance();
+      $userManager = UserManager::getInstance();
       $cars = $carManager->getAll();        
+      $username = $_SESSION['username'];
+      if ($userManager -> isAdmin($username)) {
+        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?$username'>Modificar contraseña</a> <a class='button menu' href='/app/user_add'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> </div> </div>";
+      } else {
+        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?$username'>Modificar contraseña</a></div>";
+      }
     ?>
     <div class="container">
       <h2 class="main-title">Car List</h2>

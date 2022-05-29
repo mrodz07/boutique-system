@@ -51,6 +51,32 @@ form .button {
   color: white;
 }
 
+.menu {
+  background-color: #458588;
+  border: 2px solid #83a598;
+  color: white;
+}
+
+.user-menu-container {
+  display: flex;
+  background-color: #076678;
+  border: 2px solid #83a598;
+  color: white;
+  padding: 0.4rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-menu {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.user-menu .button {
+  margin: 0.1rem;
+}
+
 .container {
   width: 80%;
   margin: auto;

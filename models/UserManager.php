@@ -72,5 +72,24 @@
       return false;
     }
 
+    public function isAdmin($username) {
+      try {
+        $q = $this->con->prepare('SELECT admin FROM usuario_contrasena WHERE usuario = ?');
+        $q->bindParam(1, $username, PDO::PARAM_STR);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+
+      $isAdmin = $q -> fetch(PDO::FETCH_OBJ);
+      
+      if ($isAdmin) {
+        return true;    
+      }
+
+      return false;
+    }
+
   }
 ?>
