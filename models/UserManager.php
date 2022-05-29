@@ -102,5 +102,56 @@
           echo $e->getMessage();
       }
     }
+
+    public function get($id) {
+      try {
+        $q = $this->con->prepare('SELECT usuario FROM usuario_contrasena WHERE id = ?');
+        $q->bindParam(1, $id, PDO::PARAM_STR);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getAll() {
+      try {
+        $q = $this->con->prepare('SELECT id, usuario FROM usuario_contrasena');
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage(); }
+
+      return $q->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function delete($id) {
+      try {
+        $q = $this->con->prepare('DELETE FROM usuario_contrasena WHERE id = ?');
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+        return true;
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+    }
+
+    public function updateUsername($id, $newUsername) {
+      try {
+        $q = $this->con->prepare("UPDATE usuario_contrasena SET usuario=? WHERE id=?");
+        $q->bindParam(1, $newUsername, PDO::PARAM_STR);
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+        return true;
+      } catch(PDOException $e){
+          return false;
+      }
+      
+      return true; 
+    }
   }
 ?>
