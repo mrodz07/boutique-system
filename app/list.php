@@ -1,11 +1,11 @@
 <?php
   session_start();
-  if (!isset($_SESSION['username']))
-  {
+  if (!isset($_SESSION['username'])) {
     $error = "Entra a tu cuenta antes de acceder al sistema";
     // User is not logged in, so send user away.
     $_SESSION['error'] = $error;
     header("Location: /");
+    exit;
   }
 ?>
 
@@ -13,11 +13,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Listado de autos</title>
+    <title>Listado de artículos</title>
     <link rel="stylesheet" href="style.css">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
   <body>
+    <?php
+      if (isset($_SESSION["error"])) {
+        $error = $_SESSION["error"];
+        echo "<div class='alert'>$error</div>";
+      }
+      if (isset($_SESSION["message"])) {
+        $message = $_SESSION["message"];
+        echo "<div class='info'>$message</div>";
+      }
+    ?>
     <?php
       require_once "../models/CarManager.php";
       require_once "../models/UserManager.php";
@@ -26,9 +36,9 @@
       $cars = $carManager->getAll();        
       $username = $_SESSION['username'];
       if ($userManager -> isAdmin($username)) {
-        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?$username'>Modificar contraseña</a> <a class='button menu' href='/app/user_add'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> </div> </div>";
+        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a> <a class='button menu' href='/app/user_add'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> </div> </div>";
       } else {
-        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?$username'>Modificar contraseña</a></div>";
+        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a></div>";
       }
     ?>
     <div class="container">
@@ -72,3 +82,8 @@
     </div>
   </body>
 </html>
+
+<?php
+  unset($_SESSION["error"]);
+  unset($_SESSION["message"]);
+?>

@@ -20,10 +20,11 @@
 
     //insertamos usuarios en una tabla con mysql
     public function save($username, $password, $isAdmin) {
+      $passwordHash = password_hash($password, PASSWORD_DEFAULT);
       try {
         $q = $this->con->prepare('INSERT INTO usuario_contrasena VALUES(DEFAULT, ?, ?, ?)');
         $q->bindParam(1, $username, PDO::PARAM_STR);
-        $q->bindParam(2, $password, PDO::PARAM_STR);
+        $q->bindParam(2, $passwordHash, PDO::PARAM_STR);
         $q->bindParam(3, $isAdmin, PDO::PARAM_INT);
         $q->execute();
         $this->con->close();
@@ -54,18 +55,16 @@
 
     public function checkCredentials($username, $password) {
       try {
-        $q = $this->con->prepare('SELECT 1 FROM usuario_contrasena WHERE usuario = ? AND contrasena = ? LIMIT 1');
+        $q = $this->con->prepare('SELECT contrasena FROM usuario_contrasena WHERE usuario = ?');
         $q->bindParam(1, $username, PDO::PARAM_STR);
-        $q->bindParam(2, $password, PDO::PARAM_STR);
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
-
-      $credentialsCorrect = $q -> fetch(PDO::FETCH_OBJ);
+      $dbPassHash = $q -> fetch(PDO::FETCH_OBJ) -> contrasena;
       
-      if ($credentialsCorrect) {
+      if (password_verify($password, $dbPassHash)) {
         return true;    
       }
 
@@ -91,5 +90,17 @@
       return false;
     }
 
+    public function updatePass($username, $password) {
+      $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+      try {
+        $q = $this->con->prepare("UPDATE usuario_contrasena SET contrasena=? WHERE usuario=?");
+        $q->bindParam(1, $passwordHash, PDO::PARAM_STR);
+        $q->bindParam(2, $username, PDO::PARAM_STR);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+    }
   }
 ?>
