@@ -3,19 +3,14 @@
 class MSQLDB extends PDO {
   //instance
   private static $instance = null;
-	//dbname
-	private $dbname = "tec";
-	//host
-	private $host = "localhost";
-	//user database
-	private $user = "tec";
-	//password user
-	private $pass = "tecpass";
+  //config
+  private $config = null;
  
 	//connect with mysql and pdo
 	private function __construct(){
+    $config =  = parse_ini_file('psql.ini');
 	  try {
-	    $this->instance = parent::__construct("mysql:host=$this->host;dbname=$this->dbnamme;charset=UTF8");
+	    $instance = parent::__construct("pgsql:host=" . $config['host'] . ";port=" . $config['port'] . ";dbname=" . $config['dbname'] . ";user=" . $config['user'] . ";password=" . $config['password']);
 	  } catch(PDOException $e) {
 	      echo  $e->getMessage();
 	  } 
@@ -31,7 +26,7 @@ class MSQLDB extends PDO {
  
 	//función para cerrar una conexión pdo
 	public function close(){
-    	$this->instance = null;
+    	$instance = null;
 	} 
 }
 
