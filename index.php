@@ -19,14 +19,14 @@
     <?php
       if (isset($_SESSION["error"])) {
         $error = $_SESSION["error"];
-        echo "<div class='info alert'>$error</div>";
+        echo "<div class='alert'>$error</div>";
       }
     ?>
     <h2 class="main-title">Acceso al sistema</h2>
     <div class="container">
       <form action="/app/login.php" method="post">
         <div class="form-group">
-          <label for="username">Correo:</label>
+          <label for="username">Usuario:</label>
           <input id="username" type="text" name="username" />
         </div>
         <div class="form-group">
