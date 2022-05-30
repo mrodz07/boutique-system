@@ -43,7 +43,7 @@
     ?>
     <?php
       $users = $userManager ->getAll();        
-      echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> <a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a> <a class='button menu' href='/app/user_list.php'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> </div> </div>";
+      echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/user_list.php'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
     ?>
     <div class="container">
       <h2 class="main-title">Lista de usuarios</h2>
@@ -55,6 +55,7 @@
             <tr>
               <th>Id</th>
               <th>Nombre</th>
+              <th>Administrador</th>
               <th>Opciones</th>
             </tr>
             
@@ -62,10 +63,11 @@
               <tr>
                 <td><?php echo $user->id ?></td>
                 <td><?php echo $user->usuario ?></td>
+                <td><?php echo ($user->admin == 1) ? "Sí" : "No" ?></td>
                 <td>
-                    <a class="button info" href="/app/user_details.php?id=<?php echo $user->id ?>">Detalles</a> 
-                    <a class="button info" href="/app/user_edit.php?id=<?php echo $user->id ?>">Editar</a> 
-                    <a class="button info" href="/app/user_delete.php?id=<?php echo $user->id ?>">Borrar</a>
+                    <a class="button info" href="/app/user_details.php?username=<?php echo $user->id ?>">Detalles</a> 
+                    <a class="button info" href="/app/user_edit.php?username=<?php echo $user->id ?>">Editar</a> 
+                    <a class="button info" href="/app/user_delete.php?username=<?php echo $user->id ?>">Borrar</a>
                 </td>
               </tr>
             <?php } ?>

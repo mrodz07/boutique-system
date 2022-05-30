@@ -118,7 +118,7 @@
 
     public function getAll() {
       try {
-        $q = $this->con->prepare('SELECT id, usuario FROM usuario_contrasena');
+        $q = $this->con->prepare('SELECT id, usuario, admin FROM usuario_contrasena');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
