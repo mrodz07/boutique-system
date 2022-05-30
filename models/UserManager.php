@@ -83,7 +83,7 @@
 
       $isAdmin = $q -> fetch(PDO::FETCH_OBJ);
       
-      if ($isAdmin) {
+      if ($isAdmin -> admin) {
         return true;    
       }
 
