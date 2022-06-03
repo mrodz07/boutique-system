@@ -100,7 +100,9 @@
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
+          return false;
       }
+      return true;
     }
 
     public function get($username) {

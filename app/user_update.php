@@ -35,16 +35,35 @@
   } else {
     if (!empty($_POST['username']) && !empty($_POST['oldUsername']) && !empty($_POST['np'])) {
       if ($uM -> updateUsername($_POST['oldUsername'], $_POST['username'])) {
-        $message = "Nombre y contraseña cambiados con exito";
-        $_SESSION['message'] = $message;
-        header("Location: /app/user_list.php");
-        exit;
+        if ($uM -> updatePass($_SESSION['username'], $_POST['np'])) {
+          $message = "Nombre y contraseña cambiados con exito";
+          $_SESSION['message'] = $message;
+          header("Location: /app/user_list.php");
+          exit;
+        }
       } else {
         $error = "El nombre de usuario no está disponible";
         $_SESSION['error'] = $error;
         header("Location: /app/user_edit.php?username=". $_POST['username']);
         exit;
       }
+    } else if (!empty($_POST['username']) && !empty($_POST['oldUsername'])) {
+      if ($uM -> updateUsername($_POST['oldUsername'], $_POST['username'])) {
+        $message = "Nombre cambiado con éxito";
+        $_SESSION['message'] = $message;
+        header("Location: /app/user_list.php");
+        exit;
+      } 
+    } else if (!empty($_POST['oldUsername']) && !empty($_POST['np'])) {
+      if ($uM -> updatePass($_SESSION['username'], $_POST['np'])) {
+        $message = "Contraseña cambiada con éxito";
+        $_SESSION['message'] = $message;
+        header("Location: /app/user_list.php");
+        exit;
+      }
     }
   }
+  $error = "Cambia los datos para actualizar";
+  $_SESSION['error'] = $error;
+  header("Location: /app/user_edit.php?username=". $_POST['oldUsername']);
 ?>
