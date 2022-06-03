@@ -24,7 +24,7 @@
     ?>
     <h2 class="main-title">Acceso al sistema</h2>
     <div class="container">
-      <form action="/app/login.php" method="post">
+      <form action="/app/user_login.php" method="post">
         <div class="form-group">
           <label for="username">Usuario:</label>
           <input id="username" type="text" name="username" />
