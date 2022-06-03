@@ -33,8 +33,8 @@
       exit;
     }
   } else {
-    if (!empty($_POST['username']) && !empty($_POST['id']) && !empty($_POST['np'])) {
-      if ($uM -> updateUsername($_POST['id'], $_POST['username'])) {
+    if (!empty($_POST['username']) && !empty($_POST['oldUsername']) && !empty($_POST['np'])) {
+      if ($uM -> updateUsername($_POST['oldUsername'], $_POST['username'])) {
         $message = "Nombre y contraseña cambiados con exito";
         $_SESSION['message'] = $message;
         header("Location: /app/user_list.php");

@@ -65,9 +65,9 @@
                 <td><?php echo $user->usuario ?></td>
                 <td><?php echo ($user->admin == 1) ? "Sí" : "No" ?></td>
                 <td>
-                    <a class="button info" href="/app/user_details.php?username=<?php echo $user->id ?>">Detalles</a> 
-                    <a class="button info" href="/app/user_edit.php?username=<?php echo $user->id ?>">Editar</a> 
-                    <a class="button info" href="/app/user_delete.php?username=<?php echo $user->id ?>">Borrar</a>
+                    <a class="button info" href="/app/user_details.php?username=<?php echo $user->usuario ?>">Detalles</a> 
+                    <a class="button info" href="/app/user_edit.php?username=<?php echo $user->usuario ?>">Editar</a> 
+                    <a class="button info" href="/app/user_delete.php?username=<?php echo $user->usuario ?>">Borrar</a>
                 </td>
               </tr>
             <?php } ?>

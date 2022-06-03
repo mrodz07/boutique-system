@@ -103,10 +103,10 @@
       }
     }
 
-    public function get($id) {
+    public function get($username) {
       try {
-        $q = $this->con->prepare('SELECT usuario FROM usuario_contrasena WHERE id = ?');
-        $q->bindParam(1, $id, PDO::PARAM_STR);
+        $q = $this->con->prepare('SELECT id, admin FROM usuario_contrasena WHERE usuario = ?');
+        $q->bindParam(1, $username, PDO::PARAM_STR);
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
@@ -127,10 +127,10 @@
       return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function delete($id) {
+    public function delete($username) {
       try {
-        $q = $this->con->prepare('DELETE FROM usuario_contrasena WHERE id = ?');
-        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q = $this->con->prepare('DELETE FROM usuario_contrasena WHERE usuario = ?');
+        $q->bindParam(1, $username, PDO::PARAM_STR);
         $q->execute();
         $this->con->close();
         return true;
@@ -139,11 +139,11 @@
       }
     }
 
-    public function updateUsername($id, $newUsername) {
+    public function updateUsername($oldUsername, $newUsername) {
       try {
-        $q = $this->con->prepare("UPDATE usuario_contrasena SET usuario=? WHERE id=?");
+        $q = $this->con->prepare("UPDATE usuario_contrasena SET usuario=? WHERE usuario=?");
         $q->bindParam(1, $newUsername, PDO::PARAM_STR);
-        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->bindParam(2, $oldUsername, PDO::PARAM_STR);
         $q->execute();
         $this->con->close();
         return true;

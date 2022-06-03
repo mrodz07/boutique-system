@@ -3,7 +3,7 @@
   $uManager = UserManager::getInstance();
   $username = $_SESSION['username'];
   $isAdmin = $uManager -> isAdmin($username);
-  if(!empty($_POST['username'])) $newUsername = $_POST['username'];
+  if(!empty($_REQUEST['username'])) $oldUsername = $_REQUEST['username'];
 
   if (!isset($username)) {
     $error = "Inicia sesión para entrar al sistema";
@@ -78,16 +78,17 @@
     ?>
     <div class="container">
       <h2 class="main-title">Editar usuario</h2>
-      <?php echo "<form action='/app/user_update.php?username=$newUsername' method='POST'>"?>
+      <?php echo "<form action='/app/user_update.php' method='POST'>"?>
           <div class="form-group">
               <label for="username">Nuevo nombre</label>
-          <input type="text" name="username" id="username" placeholder="<?php echo $newUsername?>">
+          <input type="text" name="username" id="username" placeholder="<?php echo $oldUsername;?>">
           </div>
           <div class="form-group">
               <label for="username">Nueva contraseña</label>
               <input type="password" name="np" id="np" placeholder="Nueva contraseña">
           </div>
           <div class="form-group">
+		    		<input type="hidden" name="oldUsername" value="<?php echo $oldUsername;?>"/>
             <input type="submit" name="submit" class="button info" value="Actualizar"/>
           </div>
       </form>
