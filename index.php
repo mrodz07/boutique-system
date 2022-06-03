@@ -3,7 +3,7 @@
   if (isset($_SESSION['username']))
   {
     // User is not logged in, so send user away.
-    header("Location: /app/list.php");
+    header("Location: /app/item_list.php");
   }
 ?>
 

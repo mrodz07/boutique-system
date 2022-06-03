@@ -9,7 +9,7 @@
 
   if ($uM->checkCredentials($username, $password)) {
       $_SESSION['username'] = $username;
-      header('Location: list.php');
+      header('Location: item_list.php');
   } else {
       $_SESSION['error'] = $error;
       header('Location: /');
