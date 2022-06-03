@@ -50,7 +50,7 @@
         </div>
         <div class="form-group">
           <label for="isAdmin">Administrador</label>
-          <?php if($user -> isAdmin == 0) { ?>
+          <?php if($user -> isAdmin == 1) { ?>
             <input type="radio" name="isAdmin" value="true" class="form-control" id="isAdmin" checked disabled >Sí</input>
             <input type="radio" name="isAdmin" value="false" class="form-control" id="isAdmin" disabled >No</input>
           <?php } else { ?>
