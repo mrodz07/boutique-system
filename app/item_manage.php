@@ -13,7 +13,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Listado de artículos</title>
+    <title>Administrar artículos</title>
     <link rel="stylesheet" href="style.css">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
@@ -42,7 +42,7 @@
       }
     ?>
     <div class="container">
-      <h2 class="main-title">Lista de artículos</h2>
+      <h2 class="main-title">Car List</h2>
           <div class="button-container">
             <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/add.php">Add car</a>
             <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/add_brand.php">Add brand</a>
