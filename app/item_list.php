@@ -43,10 +43,6 @@
     ?>
     <div class="container">
       <h2 class="main-title">Lista de artículos</h2>
-          <div class="button-container">
-            <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/add.php">Add car</a>
-            <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/add_brand.php">Add brand</a>
-          </div>
           <?php if(!empty($cars)) { ?>
           <table class="table">
             <tr>
