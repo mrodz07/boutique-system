@@ -825,6 +825,9 @@ ALTER TABLE ONLY public.venta ALTER COLUMN id SET DEFAULT nextval('public.venta_
 --
 
 COPY public.categoria (id, nombre) FROM stdin;
+1	ROPA
+2	ACCESORIOS
+3	CALZADO
 \.
 
 
@@ -1076,7 +1079,7 @@ COPY public.venta (id, id_pago, id_inventario, fecha) FROM stdin;
 -- Name: categoria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pf
 --
 
-SELECT pg_catalog.setval('public.categoria_id_seq', 1, false);
+SELECT pg_catalog.setval('public.categoria_id_seq', 3, true);
 
 
 --
