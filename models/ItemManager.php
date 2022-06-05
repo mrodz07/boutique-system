@@ -7,7 +7,7 @@
     private static $instance = null;
 
     private function __construct() {
-      $this->con = MSQLDB::getInstance();
+      $this->con = PSQLDB::getInstance();
     }
 
     public static function getInstance() {
@@ -135,7 +135,7 @@
 
     public function updateSpec($id, $id_product, $id_brand, $id_season, $id_category, $id_gender, $id_color, $id_size, $description) {
       try {
-        $q = $this->con->prepare('UPDATE especificacion SET id_producto=?, id_marca=?, id_temporada=?, id_categoria=?, id_genero=?, id_color_tono=?, id_talla_etapa=?, description=? WHERE id=?');
+        $q = $this->con->prepare('UPDATE especificacion SET id_producto=?, id_marca=?, id_temporada=?, id_categoria=?, id_genero=?, id_color_tono=?, id_talla_etapa=?, descripcion=? WHERE id=?');
         $q->bindParam(1, $id_product, PDO::PARAM_INT);
         $q->bindParam(2, $id_brand, PDO::PARAM_INT);
         $q->bindParam(3, $id_season, PDO::PARAM_INT);
@@ -338,6 +338,19 @@
       return $q->fetch(PDO::FETCH_OBJ);
     }
 
+    public function getState($id) {
+      try {
+        $q = $this->con->prepare('SELECT nombre FROM estado WHERE id = ?');
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
     public function getAllProducts() {
       try {
         $q = $this->con->prepare('SELECT nombre FROM producto');
@@ -424,7 +437,7 @@
 
     public function getAllSizeStages() {
       try {
-        $q = $this->con->prepare('SELECT id_talla, id_etapa FROM talla_etapa'?);
+        $q = $this->con->prepare('SELECT id_talla, id_etapa FROM talla_etapa');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
@@ -434,7 +447,7 @@
       return $q->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getCategories() {
+    public function getAllCategories() {
       try {
         $q = $this->con->prepare('SELECT nombre FROM categoria');
         $q->execute();
@@ -484,7 +497,7 @@
 
     public function getAllSpec() {
       try {
-        $q = $this->con->prepare('SELECT id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, id_descripcion FROM especificacion');
+        $q = $this->con->prepare('SELECT id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, descripcion FROM especificacion');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){

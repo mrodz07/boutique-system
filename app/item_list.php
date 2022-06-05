@@ -29,13 +29,14 @@
       }
     ?>
     <?php
-      require_once "../models/CarManager.php";
+      require_once "../models/ItemManager.php";
       require_once "../models/UserManager.php";
-      $carManager = CarManager::getInstance();
-      $userManager = UserManager::getInstance();
-      $cars = $carManager->getAll();        
+      $ItemManager = ItemManager::getInstance();
+      $UserManager = UserManager::getInstance();
+
+      $items = $ItemManager->getAllSpec();        
       $username = $_SESSION['username'];
-      if ($userManager -> isAdmin($username)) {
+      if ($UserManager -> isAdmin($username)) {
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/item_manage.php'>Administrar artículos</a> <a class='button menu' href='/app/user_list.php'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
       } else {
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> </div> </div>";
@@ -43,26 +44,38 @@
     ?>
     <div class="container">
       <h2 class="main-title">Lista de artículos</h2>
-          <?php if(!empty($cars)) { ?>
+          <div class="button-container">
+            <a class="button info" href="/app/item_add.php">Añadir artículo</a>
+          </div>
+          <?php if(!empty($items)) { ?>
           <table class="table">
             <tr>
               <th>Id</th>
-              <th>Nombre</th>
+              <th>Tipo producto</th>
               <th>Marca</th>
-              <th>Aire acondicionado</th>
-              <th>Opciones</th>
+              <th>Temporada</th>
+              <th>Categoría</th>
+              <th>Género</th>
+              <th>Color</th>
+              <th>Talla</th>
+              <th>Descripción</th>
             </tr>
             
-            <?php foreach($cars as $car) { ?>
+            <?php foreach($items as $item) { ?>
               <tr>
-                <td><?php echo $car->id ?></td>
-                <td><?php echo $car->nombre ?></td>
-                <td><?php echo $carManager->getBrand($car->id_marca)->nombre ?></td>
-                <td><?php echo $car->aire_acondicionado > 0 ? 'Sí' : 'No' ?></td>
+                <td><?php echo $item->id ?></td>
+                <td><?php echo $itemManager->getProduct($item->id_producto) ?></td>
+                <td><?php echo $itemManager->getBrand($item->id_marca) ?></td>
+                <td><?php echo $itemManager->getSeason($item->id_temporada) ?></td>
+                <td><?php echo $itemManager->getCategory($item->id_categoria) ?></td>
+                <td><?php echo $itemManager->getGender($item->id_genero) ?></td>
+                <td><?php echo $itemManager->getColor($itemManager->getColorTone($item->color_tono)->id_color) . $itemManager->getTone($itemManager->getColorTone($item->color_tono)->id_tono) ?></td>
+                <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->talla_etapa)->id_talla) . $itemManager->getStage($itemManager->getSizeStage($item->talla_etapa)->id_etapa) ?></td>
+                <td><?php echo $item->descripcion ?></td>
                 <td>
-                    <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/details.php?car=<?php echo $car->id ?>">Details</a> 
-                    <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/edit.php?car=<?php echo $car->id ?>">Edit</a> 
-                    <a class="button info" href="<?php echo CarManager::baseurl() ?>/app/delete.php?car=<?php echo $car->id ?>">Delete</a>
+                    <a class="button info" href="/app/details.php?car=<?php echo $item->id ?>">Detalles</a> 
+                    <a class="button info" href="/app/edit.php?car=<?php echo $item->id ?>">Editar</a> 
+                    <a class="button info" href="/app/delete.php?car=<?php echo $item->id ?>">Borrar</a>
                 </td>
               </tr>
             <?php } ?>
@@ -70,7 +83,7 @@
           <?php
             } else {
           ?>
-            <div class="msg alert">There are 0 registered users</div>
+            <div class="msg alert">Hay 0 artículos registrados</div>
           <?php
             }
           ?>
