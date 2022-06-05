@@ -48,46 +48,48 @@
             <a class="button info" href="/app/item_add.php">Añadir artículo</a>
           </div>
           <?php if(!empty($items)) { ?>
-          <table class="table">
-            <tr>
-              <th>Id</th>
-              <th>Tipo producto</th>
-              <th>Marca</th>
-              <th>Temporada</th>
-              <th>Categoría</th>
-              <th>Género</th>
-              <th>Color</th>
-              <th>Talla</th>
-              <th>Descripción</th>
-            </tr>
-            
-            <?php foreach($items as $item) { ?>
+          <div>
+            <table class="table">
               <tr>
-                <td><?php echo $item->id ?></td>
-                <td><?php echo $itemManager->getProduct($item->id_producto)->nombre ?></td>
-                <td><?php echo $itemManager->getBrand($item->id_marca)->nombre ?></td>
-                <td><?php echo ($item->id_temporada == NULL) ? "Cualquiera" : $itemManager->getSeason($item->id_temporada)->nombre ?></td>
-                <td><?php echo $itemManager->getCategory($item->id_categoria)->nombre ?></td>
-                <td><?php echo $itemManager->getGender($item->id_genero)->nombre ?></td>
-                <td>
-                  <div>
-                    <div style="background-color: <?php echo $itemManager->getColorTone($item->id_color_tono)->valor_hexadecimal?>;">
-                    </div>
-                    <div>
-                      <?php echo $itemManager->getColor($itemManager->getColorTone($item->id_color_tono)->id_color)->nombre . " " . $itemManager->getTone($itemManager->getColorTone($item->id_color_tono)->id_tono)->nombre ?>
-                    </div>
-                  </div>
-                </td>
-                <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->id_talla_etapa)->id_talla)->nombre . " " . $itemManager->getStage($itemManager->getSizeStage($item->id_talla_etapa)->id_etapa)->nombre ?></td>
-                <td><?php echo $item->descripcion ?></td>
-                <td>
-                    <a class="button info" href="/app/details.php?car=<?php echo $item->id ?>">Detalles</a> 
-                    <a class="button info" href="/app/edit.php?car=<?php echo $item->id ?>">Editar</a> 
-                    <a class="button info" href="/app/delete.php?car=<?php echo $item->id ?>">Borrar</a>
-                </td>
+                <th>Id</th>
+                <th>Tipo producto</th>
+                <th>Marca</th>
+                <th>Temporada</th>
+                <th>Categoría</th>
+                <th>Género</th>
+                <th>Color</th>
+                <th>Talla</th>
+                <th>Descripción</th>
               </tr>
-            <?php } ?>
-          </table>
+              
+              <?php foreach($items as $item) { ?>
+                <tr>
+                  <td><?php echo $item->id ?></td>
+                  <td><?php echo $itemManager->getProduct($item->id_producto)->nombre ?></td>
+                  <td><?php echo $itemManager->getBrand($item->id_marca)->nombre ?></td>
+                  <td><?php echo ($item->id_temporada == NULL) ? "Cualquiera" : $itemManager->getSeason($item->id_temporada)->nombre ?></td>
+                  <td><?php echo $itemManager->getCategory($item->id_categoria)->nombre ?></td>
+                  <td><?php echo $itemManager->getGender($item->id_genero)->nombre ?></td>
+                  <td>
+                    <div class="color-cube-container">
+                      <div class="color-cube" style="background-color: #<?php echo $itemManager->getColorTone($item->id_color_tono)->valor_hexadecimal?>;">
+                      </div>
+                      <div>
+                        <?php echo $itemManager->getColor($itemManager->getColorTone($item->id_color_tono)->id_color)->nombre . " " . $itemManager->getTone($itemManager->getColorTone($item->id_color_tono)->id_tono)->nombre ?>
+                      </div>
+                    </div>
+                  </td>
+                  <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->id_talla_etapa)->id_talla)->nombre . " " . $itemManager->getStage($itemManager->getSizeStage($item->id_talla_etapa)->id_etapa)->nombre ?></td>
+                  <td><?php echo $item->descripcion ?></td>
+                  <td>
+                      <a class="button info" href="/app/details.php?car=<?php echo $item->id ?>">Detalles</a> 
+                      <a class="button info" href="/app/edit.php?car=<?php echo $item->id ?>">Editar</a> 
+                      <a class="button info" href="/app/delete.php?car=<?php echo $item->id ?>">Borrar</a>
+                  </td>
+                </tr>
+              <?php } ?>
+            </table>
+          </div>
           <?php
             } else {
           ?>
