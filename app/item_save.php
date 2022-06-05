@@ -35,7 +35,7 @@
 if($itemManager->saveSpec($post->product, $post->brand, $post->season, $post->category, $post->gender, $post->color, $post->size, $post->description)) {
     $_SESSION['message'] = "El artículo se agregó correctamente";
   } else {
-    $_SESSION['error'] = "Algo salió mal";
+    $_SESSION['error'] = "El artículo que añadiste ya se encuentra en la lista";
   }
 	header("Location: /app/item_list.php");
 ?>

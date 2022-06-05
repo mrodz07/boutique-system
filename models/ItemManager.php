@@ -573,7 +573,7 @@
 
     public function deleteSpec($id) {
       try {
-        $q = $this->con->prepare('DELETE FROM especificacoin WHERE id = ?');
+        $q = $this->con->prepare('DELETE FROM especificacion WHERE id = ?');
         $q->bindParam(1, $id, PDO::PARAM_INT);
         $q->execute();
         $this->con->close();

@@ -1,7 +1,10 @@
 <?php
   session_start();
 
+	require_once "../models/UserManager.php";
+	require_once "../models/ItemManager.php";
   $userManager = UserManager::getInstance();
+  $itemManager = itemManager::getInstance();
   $username = $_SESSION['username'];
 
   if (!isset($username)) {
@@ -12,10 +15,10 @@
     exit;
   }
 
-	$username = filter_input(INPUT_GET, 'username', FILTER_SANITIZE_STRING);
+	$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-	if ($username) {
-		$userManager->delete($username);
+	if ($id) {
+		$itemManager->deleteSpec($id);
 	}
-	header("Location: /app/user_list.php");
+	header("Location: /app/item_list.php");
 ?>
