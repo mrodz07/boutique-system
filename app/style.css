@@ -112,6 +112,7 @@ form .button {
 .color-cube {
   width: 1rem;
   height: 1rem;
+  margin: 0 4px 0 4px;
 }
 
 .color-cube-container {
