@@ -82,6 +82,16 @@
           </select>
         </div>
         <div class="form-group">
+          <p>Temporada</p>
+          <select name="season">
+            <?php
+              foreach($seasons as $season) {
+                echo "<option value='" . $season->id . "'>" . $season->nombre . "</option>";
+              }
+            ?>
+          </select>
+        </div>
+        <div class="form-group">
           <p>Género</p>
           <select name="gender">
             <?php
@@ -116,9 +126,9 @@
             <?php
               foreach($sizeStages as $sizeStage) {
                 if ($itemManager->getSize($sizeStage->id_talla)-> nombre == null)
-                  echo "<option value'" . $sizeStage->id . "'>" . $itemManager->getSize($sizeStage->id_talla)->numero . " " . $itemManager->getStage($sizeStage->id_etapa)->nombre . "</option>";
+                  echo "<option value='" . $sizeStage->id . "'>" . $itemManager->getSize($sizeStage->id_talla)->numero . " " . $itemManager->getStage($sizeStage->id_etapa)->nombre . "</option>";
                 else
-                  echo "<option value'" . $sizeStage->id . "'>" . $itemManager->getSize($sizeStage->id_talla)->nombre . " " . $itemManager->getStage($sizeStage->id_etapa)->nombre . "</option>";
+                  echo "<option value='" . $sizeStage->id . "'>" . $itemManager->getSize($sizeStage->id_talla)->nombre . " " . $itemManager->getStage($sizeStage->id_etapa)->nombre . "</option>";
               }
             ?>
           </select>
@@ -127,7 +137,7 @@
           <label for="description">Descripción</label>
           <input type="text" name="description" value="" class="form-control" id="description" placeholder="Características del producto">
         </div>
-        <input type="submit" name="submit" class="button info" value="Guardar usuario"/>
+        <input type="submit" name="submit" class="button info" value="Guardar artículo"/>
       </form>
     </div>
   </body>
