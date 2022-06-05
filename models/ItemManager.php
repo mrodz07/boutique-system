@@ -351,172 +351,185 @@
       return $q->fetch(PDO::FETCH_OBJ);
     }
 
+    public function getStage($id) {
+      try {
+        $q = $this->con->prepare('SELECT nombre FROM etapa WHERE id = ?');
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
     public function getAllProducts() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM producto');
+        $q = $this->con->prepare('SELECT * FROM producto');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllBrands() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM marca');
+        $q = $this->con->prepare('SELECT * FROM marca');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllGenders() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM genero');
+        $q = $this->con->prepare('SELECT * FROM genero');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllSizes() {
       try {
-        $q = $this->con->prepare('SELECT nombre, numero FROM talla');
+        $q = $this->con->prepare('SELECT * FROM talla');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllColors() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM color');
+        $q = $this->con->prepare('SELECT * FROM color');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
   
     public function getAllTones() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM tono');
+        $q = $this->con->prepare('SELECT * FROM tono');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllColorTones() {
       try {
-        $q = $this->con->prepare('SELECT id_color, id_tono, valor_hexadecimal FROM color_tono');
+        $q = $this->con->prepare('SELECT * FROM color_tono');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllSizeStages() {
       try {
-        $q = $this->con->prepare('SELECT id_talla, id_etapa FROM talla_etapa');
+        $q = $this->con->prepare('SELECT * FROM talla_etapa');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllCategories() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM categoria');
+        $q = $this->con->prepare('SELECT * FROM categoria');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllSeasons() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM temporada');
+        $q = $this->con->prepare('SELECT * FROM temporada');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllTypes() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM tipo');
+        $q = $this->con->prepare('SELECT * FROM tipo');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllStates() {
       try {
-        $q = $this->con->prepare('SELECT nombre FROM estado');
+        $q = $this->con->prepare('SELECT * FROM estado');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllSpec() {
       try {
-        $q = $this->con->prepare('SELECT id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, descripcion FROM especificacion');
+        $q = $this->con->prepare('SELECT * FROM especificacion');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getAllSpecTypes() {
       try {
-        $q = $this->con->prepare('SELECT id_especificacion, id_tipo FROM especificacion_tipo');
+        $q = $this->con->prepare('SELECT * FROM especificacion_tipo');
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
           echo $e->getMessage();
       }
 
-      return $q->fetch(PDO::FETCH_OBJ);
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function deleteProduct($id) {

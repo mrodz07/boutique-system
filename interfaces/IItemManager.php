@@ -23,6 +23,7 @@
     public function getCategory($id);
     public function getSeason($id);
     public function getState($id);
+    public function getStage($id);
     public function getSpecType($id);
     public function getAllProducts();
     public function getAllBrands();

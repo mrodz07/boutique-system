@@ -31,12 +31,12 @@
     <?php
       require_once "../models/ItemManager.php";
       require_once "../models/UserManager.php";
-      $ItemManager = ItemManager::getInstance();
-      $UserManager = UserManager::getInstance();
+      $itemManager = ItemManager::getInstance();
+      $userManager = UserManager::getInstance();
 
-      $items = $ItemManager->getAllSpec();        
+      $items = $itemManager->getAllSpec();        
       $username = $_SESSION['username'];
-      if ($UserManager -> isAdmin($username)) {
+      if ($userManager -> isAdmin($username)) {
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/item_manage.php'>Administrar artículos</a> <a class='button menu' href='/app/user_list.php'>Administrar usuarios</a> <a class='button menu' href='/app/statistics.php'>Ver estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
       } else {
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> </div> </div>";
@@ -64,13 +64,21 @@
             <?php foreach($items as $item) { ?>
               <tr>
                 <td><?php echo $item->id ?></td>
-                <td><?php echo $itemManager->getProduct($item->id_producto) ?></td>
-                <td><?php echo $itemManager->getBrand($item->id_marca) ?></td>
-                <td><?php echo $itemManager->getSeason($item->id_temporada) ?></td>
-                <td><?php echo $itemManager->getCategory($item->id_categoria) ?></td>
-                <td><?php echo $itemManager->getGender($item->id_genero) ?></td>
-                <td><?php echo $itemManager->getColor($itemManager->getColorTone($item->color_tono)->id_color) . $itemManager->getTone($itemManager->getColorTone($item->color_tono)->id_tono) ?></td>
-                <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->talla_etapa)->id_talla) . $itemManager->getStage($itemManager->getSizeStage($item->talla_etapa)->id_etapa) ?></td>
+                <td><?php echo $itemManager->getProduct($item->id_producto)->nombre ?></td>
+                <td><?php echo $itemManager->getBrand($item->id_marca)->nombre ?></td>
+                <td><?php echo ($item->id_temporada == NULL) ? "Cualquiera" : $itemManager->getSeason($item->id_temporada)->nombre ?></td>
+                <td><?php echo $itemManager->getCategory($item->id_categoria)->nombre ?></td>
+                <td><?php echo $itemManager->getGender($item->id_genero)->nombre ?></td>
+                <td>
+                  <div>
+                    <div style="background-color: <?php echo $itemManager->getColorTone($item->id_color_tono)->valor_hexadecimal?>;">
+                    </div>
+                    <div>
+                      <?php echo $itemManager->getColor($itemManager->getColorTone($item->id_color_tono)->id_color)->nombre . " " . $itemManager->getTone($itemManager->getColorTone($item->id_color_tono)->id_tono)->nombre ?>
+                    </div>
+                  </div>
+                </td>
+                <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->id_talla_etapa)->id_talla)->nombre . " " . $itemManager->getStage($itemManager->getSizeStage($item->id_talla_etapa)->id_etapa)->nombre ?></td>
                 <td><?php echo $item->descripcion ?></td>
                 <td>
                     <a class="button info" href="/app/details.php?car=<?php echo $item->id ?>">Detalles</a> 
