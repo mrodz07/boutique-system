@@ -42,7 +42,7 @@
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'><a class='button menu' href='/app/user_edit.php?username=$username'>Modificar contraseña</a><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> </div> </div>";
       }
     ?>
-    <div class="container">
+    <div class="container-full">
       <h2 class="main-title">Lista de artículos</h2>
           <div class="button-container">
             <a class="button info" href="/app/item_add.php">Añadir artículo</a>
@@ -60,6 +60,7 @@
                 <th>Color</th>
                 <th>Talla</th>
                 <th>Descripción</th>
+                <th>Opciones</th>
               </tr>
               
               <?php foreach($items as $item) { ?>
@@ -80,11 +81,15 @@
                     </div>
                   </td>
                   <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->id_talla_etapa)->id_talla)->nombre . " " . $itemManager->getStage($itemManager->getSizeStage($item->id_talla_etapa)->id_etapa)->nombre ?></td>
-                  <td><?php echo $item->descripcion ?></td>
-                  <td>
-                      <a class="button info" href="/app/details.php?car=<?php echo $item->id ?>">Detalles</a> 
-                      <a class="button info" href="/app/edit.php?car=<?php echo $item->id ?>">Editar</a> 
-                      <a class="button info" href="/app/delete.php?car=<?php echo $item->id ?>">Borrar</a>
+                  <td style='margin: 0; padding: 0;'>
+                    <div class='item-desc-container'>
+                      <p class='item-desc'> <?php echo $item->descripcion ?> </p>
+                    </div>
+                  </td>
+                  <td class='option-menu-container'>
+                      <a class="button info option-menu" href="/app/item_details.php?id=<?php echo $item->id ?>">Detalles</a> 
+                      <a class="button info option-menu" href="/app/item_edit.php?id=<?php echo $item->id ?>">Editar</a> 
+                      <a class="button info option-menu" href="/app/item_delete.php?id=<?php echo $item->id ?>">Borrar</a>
                   </td>
                 </tr>
               <?php } ?>
