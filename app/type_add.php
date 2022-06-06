@@ -1,19 +1,20 @@
-<?php session_start();
-  require_once "../models/UserManager.php";
+<?php
+  session_start();
   require_once "../models/ItemManager.php";
-  $userManager = UserManager::getInstance();
+  require_once "../models/UserManager.php";
+
   $itemManager = ItemManager::getInstance();
+  $userManager = UserManager::getInstance();
   $username = $_SESSION['username'];
-  $id = $_REQUEST['id'];
 
   if (!isset($username)) {
-    $error = "Inicia sesión para entrar al sistema";
+    $error = "Entra a tu cuenta antes de acceder al sistema";
     // User is not logged in, so send user away.
     $_SESSION['error'] = $error;
     header("Location: /");
     exit;
   }
-
+  
   if(!$userManager -> isAdmin($username)) {
     $error = "No estás autorizado para entrar a esta página";
     // User is not logged in, so send user away.
@@ -26,10 +27,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="utf-8">
-      <title>Editar marca</title>
-      <link rel="stylesheet" href="style.css">
-      <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <meta charset="utf-8">
+    <title>Añadir tipo de artículo</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
   <body>
     <?php
@@ -37,18 +38,15 @@
         $error = $_SESSION["error"];
         echo "<div class='alert'>$error</div>";
       }
-
-      $brandData = $itemManager->getBrand($id);
     ?>
-
     <div class="container">
-      <h2 class="main-title">Editar marca</h2>
-      <?php echo "<form action='/app/brand_update.php?id=$id' method='POST'>"?>
+      <h2 class="main-title">Añadir tipo de artículo</h2>
+      <form action="/app/type_save.php" method="POST"> 
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input type="text" name="name" value="<?php echo $brandData->nombre ?>" class="form-control" id="name" placeholder="Nombre de la marca">
+          <input type="text" name="name" value="" class="form-control" id="name" placeholder="Nombre del tipo de artículo">
         </div>
-        <input type="submit" name="submit" class="button info" value="Guardar marca"/>
+        <input type="submit" name="submit" class="button info" value="Guardar tipo de artículo"/>
       </form>
     </div>
   </body>

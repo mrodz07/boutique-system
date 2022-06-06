@@ -7,7 +7,7 @@
   $username = $_SESSION['username'];
 
 	if (empty($_POST['submit'])){
-    header("Location: /app/item_list.php");
+    header("Location: /app/type_list.php");
     exit;
 	}
 
@@ -28,22 +28,15 @@
   }
   
 	$args = array(
-	    'product'  => FILTER_SANITIZE_NUMBER_INT,
-	    'brand'  => FILTER_SANITIZE_NUMBER_INT,
-      'season' => FILTER_SANITIZE_NUMBER_INT,
-	    'category'  => FILTER_SANITIZE_NUMBER_INT,
-	    'gender'  => FILTER_SANITIZE_NUMBER_INT,
-	    'color'  => FILTER_SANITIZE_NUMBER_INT,
-	    'size'  => FILTER_SANITIZE_NUMBER_INT,
-	    'description'  => FILTER_SANITIZE_STRING
+	    'name'  => FILTER_SANITIZE_STRING
 	);
 
 	$post = (object)filter_input_array(INPUT_POST, $args);
 
-if($itemManager->saveSpec($post->product, $post->brand, $post->season, $post->category, $post->gender, $post->color, $post->size, $post->description)) {
-    $_SESSION['message'] = "El artículo se agregó correctamente";
+if ($itemManager->saveProduct($post->name)) {
+    $_SESSION['message'] = "El tipo de artículo se agregó correctamente";
   } else {
-    $_SESSION['error'] = "El artículo que añadiste ya se encuentra en la lista";
+    $_SESSION['error'] = "El tipo de artículo que añadiste ya se encuentra en la lista";
   }
-	header("Location: /app/item_list.php");
+	header("Location: /app/type_list.php");
 ?>

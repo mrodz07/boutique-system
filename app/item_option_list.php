@@ -51,7 +51,7 @@
       <div style="width: 50%; margin: auto;">
           <div class="option-menu-container">
             <a class="option-menu button info" href="/app/item_list.php">Administrar artículos</a>
-            <a class="option-menu button info" href="/app/item_type_list.php">Administrar tipo de artículos</a>
+            <a class="option-menu button info" href="/app/type_list.php">Administrar tipo de artículos</a>
             <a class="option-menu button info" href="/app/brand_list.php">Administrar marcas</a>
           </div>
       </div>

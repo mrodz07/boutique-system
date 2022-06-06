@@ -27,7 +27,7 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <title>Editar marca</title>
+      <title>Editar tipo de artículo</title>
       <link rel="stylesheet" href="style.css">
       <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
@@ -38,17 +38,17 @@
         echo "<div class='alert'>$error</div>";
       }
 
-      $brandData = $itemManager->getBrand($id);
+      $typeData = $itemManager->getProduct($id);
     ?>
 
     <div class="container">
-      <h2 class="main-title">Editar marca</h2>
-      <?php echo "<form action='/app/brand_update.php?id=$id' method='POST'>"?>
+      <h2 class="main-title">Editar tipo de artículo</h2>
+      <?php echo "<form action='/app/type_update.php?id=$id' method='POST'>"?>
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input type="text" name="name" value="<?php echo $brandData->nombre ?>" class="form-control" id="name" placeholder="Nombre de la marca">
+          <input type="text" name="name" value="<?php echo $typeData->nombre ?>" class="form-control" id="name" placeholder="Nombre del tipo de artículo">
         </div>
-        <input type="submit" name="submit" class="button info" value="Guardar marca"/>
+        <input type="submit" name="submit" class="button info" value="Guardar tipo de artículo"/>
       </form>
     </div>
   </body>

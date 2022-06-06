@@ -1,15 +1,11 @@
 <?php
   session_start();
+
 	require_once "../models/UserManager.php";
 	require_once "../models/ItemManager.php";
+  $userManager = UserManager::getInstance();
   $itemManager = itemManager::getInstance();
-	$userManager = userManager::getInstance();
   $username = $_SESSION['username'];
-
-	if (empty($_POST['submit'])){
-    header("Location: /app/brand_list.php");
-    exit;
-	}
 
   if (!isset($username)) {
     $error = "Entra a tu cuenta antes de acceder al sistema";
@@ -26,17 +22,15 @@
     header("Location: /");
     exit;
   }
-  
-	$args = array(
-	    'name'  => FILTER_SANITIZE_STRING
-	);
 
-	$post = (object)filter_input_array(INPUT_POST, $args);
+	$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-if ($itemManager->saveBrand($post->name)) {
-    $_SESSION['message'] = "La marca se agregó correctamente";
-  } else {
-    $_SESSION['error'] = "La marca que añadiste ya se encuentra en la lista";
-  }
-	header("Location: /app/brand_list.php");
+	if ($id) {
+    if ($itemManager->deleteProduct($id)) {
+      $_SESSION['message'] = "El tipo de artículo se eliminó con éxito";
+    } else {
+      $_SESSION['error'] = "El tipo de artículo no pudo borrarse. Comprueba que no hayan artículos con ese tipo";
+    }
+	}
+	header("Location: /app/type_list.php");
 ?>

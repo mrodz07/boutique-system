@@ -2,17 +2,14 @@
   session_start();
 	require_once "../models/UserManager.php";
 	require_once "../models/ItemManager.php";
-  $itemManager = itemManager::getInstance();
-	$userManager = userManager::getInstance();
+  $userManager = UserManager::getInstance();
+  $itemManager = ItemManager::getInstance();
   $username = $_SESSION['username'];
+  $isAdmin = $userManager -> isAdmin($username);
+  $id = $_REQUEST['id'];
 
-	if (empty($_POST['submit'])){
-    header("Location: /app/brand_list.php");
-    exit;
-	}
-
-  if (!isset($username)) {
-    $error = "Entra a tu cuenta antes de acceder al sistema";
+  if (!isset($_SESSION['username'])) {
+    $error = "Inicia sesión para entrar al sistema";
     // User is not logged in, so send user away.
     $_SESSION['error'] = $error;
     header("Location: /");
@@ -26,17 +23,18 @@
     header("Location: /");
     exit;
   }
-  
+
 	$args = array(
 	    'name'  => FILTER_SANITIZE_STRING
 	);
 
 	$post = (object)filter_input_array(INPUT_POST, $args);
 
-if ($itemManager->saveBrand($post->name)) {
-    $_SESSION['message'] = "La marca se agregó correctamente";
+  if ($itemManager->updateProduct($id, $post->name)) {
+    $_SESSION['message'] = "El tipo de producto se actualizó exitosamente";
   } else {
-    $_SESSION['error'] = "La marca que añadiste ya se encuentra en la lista";
+    $_SESSION['error'] = "Los datos que ingresaste ya se presentan en otro tipo de producto";
   }
-	header("Location: /app/brand_list.php");
+
+  header("Location: /app/type_list.php");
 ?>

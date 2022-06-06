@@ -25,7 +25,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Listado de marcas</title>
+    <title>Listado de tipos de artículo</title>
     <link rel="stylesheet" href="style.css">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
@@ -44,13 +44,13 @@
       require_once "../models/ItemManager.php";
       $itemManager = ItemManager::getInstance();
 
-      $brands = $itemManager->getAllBrands();        
+      $brands = $itemManager->getAllProducts();        
       echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
     ?>
     <div class="container-full">
-      <h2 class="main-title">Lista de marcas</h2>
+      <h2 class="main-title">Lista de tipos de artículo</h2>
           <div class="button-container">
-            <a class="button info" href="/app/brand_add.php">Añadir marca</a>
+            <a class="button info" href="/app/type_add.php">Añadir tipo de artículo</a>
           </div>
           <?php if(!empty($brands)) { ?>
           <div>
@@ -66,9 +66,9 @@
                   <td><?php echo $brand->id ?></td>
                   <td><?php echo $brand->nombre ?></td>
                   <td>
-                      <a class="button info" href="/app/brand_details.php?id=<?php echo $brand->id ?>">Detalles</a> 
-                      <a class="button info" href="/app/brand_edit.php?id=<?php echo $brand->id ?>">Editar</a> 
-                      <a class="button info" href="/app/brand_delete.php?id=<?php echo $brand->id ?>">Borrar</a>
+                      <a class="button info" href="/app/type_details.php?id=<?php echo $brand->id ?>">Detalles</a> 
+                      <a class="button info" href="/app/type_edit.php?id=<?php echo $brand->id ?>">Editar</a> 
+                      <a class="button info" href="/app/type_delete.php?id=<?php echo $brand->id ?>">Borrar</a>
                   </td>
                 </tr>
               <?php } ?>
@@ -77,7 +77,7 @@
           <?php
             } else {
           ?>
-            <div class="msg alert">Hay 0 marcas registradas</div>
+            <div class="msg alert">Hay 0 tipos de artículo registrados</div>
           <?php
             }
           ?>
