@@ -18,6 +18,14 @@
     header("Location: /");
     exit;
   }
+
+  if(!$userManager -> isAdmin($username)) {
+    $error = "No estás autorizado para entrar a esta página";
+    // User is not logged in, so send user away.
+    $_SESSION['error'] = $error;
+    header("Location: /");
+    exit;
+  }
   
 	$args = array(
 	    'product'  => FILTER_SANITIZE_NUMBER_INT,
