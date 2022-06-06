@@ -3,7 +3,7 @@
   if (isset($_SESSION['username']))
   {
     header("Location: /app/general_stats.php");
-  }
+  } else {
 ?>
 
 <!DOCTYPE html>
@@ -42,4 +42,5 @@
 
 <?php
   unset($_SESSION["error"]);
+  }
 ?>
