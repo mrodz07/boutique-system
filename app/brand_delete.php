@@ -26,7 +26,11 @@
 	$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 	if ($id) {
-		$itemManager->deleteBrand($id);
+    if ($itemManager->deleteBrand($id)) {
+      $_SESSION['message'] = "La marca se eliminó con éxito";
+    } else {
+      $_SESSION['error'] = "La marca no pudo borrarse. Comprueba que no hayan artículos con ella";
+    }
 	}
 	header("Location: /app/brand_list.php");
 ?>
