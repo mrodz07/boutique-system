@@ -26,7 +26,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Listado de artículos</title>
+    <title>Inventario</title>
     <link rel="stylesheet" href="style.css">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
@@ -49,23 +49,20 @@
       echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
     ?>
     <div class="container-full">
-      <h2 class="main-title">Lista de artículos</h2>
+      <h2 class="main-title">Lista de artículos en inventario</h2>
           <div class="button-container">
-            <a class="button info" href="/app/item_add.php">Añadir artículo</a>
+            <a class="button info" href="/app/inventory_add.php">Añadir artículo</a>
           </div>
           <?php if(!empty($items)) { ?>
           <div>
             <table class="table">
               <tr>
                 <th>Id</th>
-                <th>Tipo producto</th>
-                <th>Marca</th>
-                <th>Temporada</th>
-                <th>Categoría</th>
-                <th>Género</th>
-                <th>Color</th>
-                <th>Talla</th>
-                <th>Descripción</th>
+                <th>Artículo</th>
+                <th>Estado</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Fehca Ingreso</th>
                 <th>Opciones</th>
               </tr>
               
