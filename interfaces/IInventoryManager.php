@@ -1,8 +1,13 @@
 <?php
-	interface IInventoryManager{
-    public function saveItem($id_spec, $id_state, $quantity, $price, $date);
-    public function getItem($id);
-    public function updateItem($id_spec, $id_state, $quanityt, $price, $date);
-    public function deleteItem($id);
+	interface IInventoryManager {
+    public function getAvailable($id_spec);
+    public function getConsignated($id_spec);
+    public function getReserved($id_spec);
+    public function getSold($id_spec);
+    public function getAll();
+    public function updateAvailable($id_spec, $quantity);
+    public function updateConsignated($id_spec, $quantity);
+    public function updateReserved($id_spec, $quantity);
+    public function deleteItem($id_spec);
 	}
 ?>
