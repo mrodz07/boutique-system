@@ -28,6 +28,10 @@ table, th, td {
   border: 1px solid #000000;
 }
 
+table .option-menu-container:last-child {
+  border-bottom-style: none;
+}
+
 form {
   width: 50%;
   margin: auto;
@@ -125,15 +129,18 @@ form .button {
 .option-menu-container {
   display: flex;
   flex-direction: column;
-  border: none;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
 }
 
 .option-menu-container .option-menu {
   margin: 2px 0 2px 0;
+  width: 100%;
 }
 
 .item-desc-container {
-  width: 100%;
+  width: 100px;
   height: 100px;
   overflow: scroll;
 }

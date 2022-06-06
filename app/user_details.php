@@ -38,7 +38,7 @@
       $user = $UserManager->get($username);
     ?>
     <div class="container">
-      <h2 class="main-title">User details</h2>
+      <h2 class="main-title">Detalles del usuario</h2>
       <form>
         <div class="form-group">
           <p>ID</p>
