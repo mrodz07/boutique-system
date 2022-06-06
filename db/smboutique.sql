@@ -892,6 +892,16 @@ COPY public.color_tono (id, id_color, id_tono, valor_hexadecimal) FROM stdin;
 --
 
 COPY public.especificacion (id, id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, descripcion) FROM stdin;
+16	1	1	1	3	1	24	1	sfasfaadf ads fasdf dsaf sa fa dsf as fasf sadf sa fa dsfas fa sf ads fdsafasdfsafsadfdsafdsafasfasdfdsa;lkjwalkrjewqrewq
+17	1	1	1	3	1	1	1	
+18	1	1	3	2	3	10	16	zapato
+19	1	1	2	1	2	12	22	
+20	1	1	3	2	2	16	24	
+21	1	1	2	2	1	27	11	
+22	1	1	1	3	1	24	13	
+23	1	1	3	1	1	11	8	
+24	1	1	2	1	1	26	25	
+25	1	1	2	2	1	25	24	
 \.
 
 
@@ -959,6 +969,7 @@ COPY public.inventario (id, id_especificacion, id_talla, id_estado, cantidad, pr
 --
 
 COPY public.marca (id, nombre) FROM stdin;
+1	Nike
 \.
 
 
@@ -977,6 +988,7 @@ COPY public.pago (id, nombre) FROM stdin;
 --
 
 COPY public.producto (id, nombre) FROM stdin;
+1	Zapatos
 \.
 
 
@@ -1045,6 +1057,7 @@ COPY public.temporada (id, nombre) FROM stdin;
 2	VERANO
 3	OTOÑO
 4	INVIERNO
+5	CUALQUIERA
 \.
 
 
@@ -1100,7 +1113,7 @@ SELECT pg_catalog.setval('public.color_tono_id_seq', 29, true);
 -- Name: especificacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pf
 --
 
-SELECT pg_catalog.setval('public.especificacion_id_seq', 1, false);
+SELECT pg_catalog.setval('public.especificacion_id_seq', 25, true);
 
 
 --
@@ -1149,7 +1162,7 @@ SELECT pg_catalog.setval('public.inventario_id_seq', 1, false);
 -- Name: marca_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pf
 --
 
-SELECT pg_catalog.setval('public.marca_id_seq', 1, false);
+SELECT pg_catalog.setval('public.marca_id_seq', 1, true);
 
 
 --
@@ -1163,7 +1176,7 @@ SELECT pg_catalog.setval('public.pago_id_seq', 2, true);
 -- Name: producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pf
 --
 
-SELECT pg_catalog.setval('public.producto_id_seq', 1, false);
+SELECT pg_catalog.setval('public.producto_id_seq', 1, true);
 
 
 --
@@ -1184,7 +1197,7 @@ SELECT pg_catalog.setval('public.talla_id_seq', 17, true);
 -- Name: temporada_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pf
 --
 
-SELECT pg_catalog.setval('public.temporada_id_seq', 4, true);
+SELECT pg_catalog.setval('public.temporada_id_seq', 5, true);
 
 
 --
@@ -1246,6 +1259,14 @@ ALTER TABLE ONLY public.color
 
 ALTER TABLE ONLY public.color_tono
     ADD CONSTRAINT color_tono_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: especificacion especificacion_id_producto_id_marca_id_temporada_id_categor_key; Type: CONSTRAINT; Schema: public; Owner: pf
+--
+
+ALTER TABLE ONLY public.especificacion
+    ADD CONSTRAINT especificacion_id_producto_id_marca_id_temporada_id_categor_key UNIQUE (id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, descripcion);
 
 
 --
