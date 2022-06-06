@@ -148,7 +148,7 @@
         $q->execute();
         $this->con->close();
       } catch(PDOException $e) {
-          echo  $e->getMessage();
+          error_log($e->getMessage());
           return false;         
       }
       return true;
@@ -210,12 +210,12 @@
 
     public function getSpec($id) {
       try {
-        $q = $this->con->prepare('SELECT id_producto, id_marca, id_temporada, id_categoria, id_genero, id_color_tono, id_talla_etapa, descripcion FROM tipo WHERE id = ?');
+        $q = $this->con->prepare('SELECT * FROM especificacion WHERE id = ?');
         $q->bindParam(1, $id, PDO::PARAM_INT);
         $q->execute();
         $this->con->close();
       } catch(PDOException $e){
-          echo $e->getMessage();
+          error_log($e->getMessage());
       }
 
       return $q->fetch(PDO::FETCH_OBJ);

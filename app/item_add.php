@@ -40,13 +40,13 @@
         echo "<div class='alert'>$error</div>";
       }
 
-    $products = $itemManager->getAllProducts();
-    $brands = $itemManager->getAllBrands();
-    $seasons = $itemManager->getAllSeasons();
-    $categories = $itemManager->getAllCategories();
-    $genders = $itemManager->getAllGenders();
-    $colorTones = $itemManager->getAllColorTones();
-    $sizeStages = $itemManager->getAllSizeStages();
+      $products = $itemManager->getAllProducts();
+      $brands = $itemManager->getAllBrands();
+      $seasons = $itemManager->getAllSeasons();
+      $categories = $itemManager->getAllCategories();
+      $genders = $itemManager->getAllGenders();
+      $colorTones = $itemManager->getAllColorTones();
+      $sizeStages = $itemManager->getAllSizeStages();
     ?>
     <div class="container">
       <h2 class="main-title">Añadir artículo</h2>
