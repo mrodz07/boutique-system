@@ -26,7 +26,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Listado de marcas</title>
+    <title>Listado de artículos</title>
     <link rel="stylesheet" href="style.css">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
   </head>
@@ -43,9 +43,7 @@
     ?>
     <?php
       require_once "../models/ItemManager.php";
-      require_once "../models/UserManager.php";
       $itemManager = ItemManager::getInstance();
-      $userManager = UserManager::getInstance();
 
       $items = $itemManager->getAllSpec();        
       echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";

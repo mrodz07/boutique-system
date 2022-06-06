@@ -1,7 +1,20 @@
 <?php
+  require_once "../models/UserManager.php";
+  session_start();
+  $userManager = UserManager::getInstance();
+  $username = $_SESSION['username'];
+
   session_start();
   if (!isset($_SESSION['username'])) {
     $error = "Entra a tu cuenta antes de acceder al sistema";
+    // User is not logged in, so send user away.
+    $_SESSION['error'] = $error;
+    header("Location: /");
+    exit;
+  }
+
+  if(!$userManager -> isAdmin($username)) {
+    $error = "No estás autorizado para entrar a esta página";
     // User is not logged in, so send user away.
     $_SESSION['error'] = $error;
     header("Location: /");
@@ -30,17 +43,10 @@
     ?>
     <?php
       require_once "../models/ItemManager.php";
-      require_once "../models/UserManager.php";
       $itemManager = ItemManager::getInstance();
-      $userManager = UserManager::getInstance();
 
       $items = $itemManager->getAllSpec();        
-      $username = $_SESSION['username'];
-      if ($userManager -> isAdmin($username)) {
-        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
-      } else {
-        echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/user_edit.php?username=$username'>Contraseña</a><a class='button menu' href='/app/user_close.php'>Cerrar sesión</a> </div> </div>";
-      }
+      echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
     ?>
     <div class="container-full">
       <h2 class="main-title">Lista de artículos</h2>
