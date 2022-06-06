@@ -79,7 +79,7 @@
           <input type="text" name="description" style="overflow: scroll" value="<?php echo $item->descripcion ?>" class="form-control" id="description" disabled>
         </div>
         <div class="form-group">
-        <a class="button info" href="..">Regresar<a/>
+        <a class="button info" href="/app/item_list.php">Regresar<a/>
         <div>
       </form>
     </div>
