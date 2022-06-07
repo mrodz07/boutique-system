@@ -73,7 +73,7 @@
                   <td><?php echo "ID: " . $tmp_spec->id . " " . $itemManager->getProduct($tmp_spec->id_producto)->nombre . " " . $itemManager->getBrand($tmp_spec->id_marca)->nombre . " "?></td>
                   <td><?php echo $itemManager->getState($item->id_estado)->nombre ?></td>
                   <td><?php echo $item->cantidad ?></td>
-                  <td><?php echo ($item->id_estado == 1) ? $item->precio : "No aplica" ?></td>
+                  <td><?php echo ($item->id_estado == 1) ? "$" . $item->precio : "No aplica" ?></td>
                   <td><?php echo $item->fecha_ingreso ?></td>
                   <td>
                   <?php if($item->id_estado == 1) { ?>

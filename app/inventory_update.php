@@ -25,7 +25,7 @@
   }
 
 	$args = array(
-	    'price'  => FILTER_SANITIZE_NUMBER_INT,
+	    'price'  => FILTER_SANITIZE_STRING,
 	    'quantity'  => FILTER_SANITIZE_NUMBER_INT
 	);
 
