@@ -38,6 +38,8 @@
     public function getAllTypes();
     public function getAllStates();
     public function getAllSpec();
+    public function getBrandSpecialCount($id_producto, $id_marca);
+    public function getSizeStageSpecial();
     public function getAllSpecTypes();
     public function deleteProduct($id);
     public function deleteBrand($id);

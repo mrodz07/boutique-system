@@ -36,6 +36,7 @@
 
       $items = $itemManager->getAllSpec();        
       $username = $_SESSION['username'];
+
       if ($userManager -> isAdmin($username)) {
         echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a>  <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
       } else {
@@ -44,6 +45,15 @@
     ?>
     <div class="container">
       <h2 class="main-title">Estadísticas del sistema</h2>
+      <h3>Artículos en la base de datos</h3>
+    <?php 
+      foreach ($items as $item) {
+          echo "<div class='form-group'>";
+            echo "<p>" . $itemManager->getProduct($item->id_producto)->nombre . " " . $itemManager->getBrand($item->id_marca)->nombre . "</p>";
+            echo "<p>" . $itemManager->getBrandSpecialCount($item->id_producto, $item->id_marca)->getmarcacount . "</p>";
+          echo "</div>";
+      }
+    ?> 
     </div>
   </body>
 </html>

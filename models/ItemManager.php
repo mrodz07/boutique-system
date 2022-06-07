@@ -584,5 +584,31 @@
       }
     }
 
+    public function getBrandSpecialCount($id_producto, $id_marca) {
+      try {
+        $q = $this->con->prepare('SELECT getMarcaCount(?, ?)');
+        $q->bindParam(1, $id_producto, PDO::PARAM_INT);
+        $q->bindParam(2, $id_producto, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getSizeStageSpecial() {
+      try {
+        $q = $this->con->prepare('SELECT * FROM esquema_tallas');
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e){
+          echo $e->getMessage();
+      }
+
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
   }
 ?>
