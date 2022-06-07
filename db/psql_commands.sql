@@ -16,4 +16,4 @@ CREATE TABLE tipo (id SERIAL PRIMARY KEY, nombre VARCHAR(64) NOT NULL UNIQUE);
 CREATE TABLE especificacion_tipo (id SERIAL PRIMARY KEY, id_especificacion INT REFERENCES especificacion(id) NOT NULL, id_tipo INT REFERENCES tipo(id) NOT NULL); 
 CREATE TABLE inventario (id SERIAL PRIMARY KEY, id_especificacion INT REFERENCES especificacion(id) NOT NULL, id_talla INT REFERENCES talla(id) NOT NULL, id_estado INT REFERENCES estado(id) NOT NULL, cantidad INT NOT NULL, precio DECIMAL(2) NOT NULL, fecha_ingreso DATE NOT NULL DEFAULT NOW());
 CREATE TABLE venta (id SERIAL PRIMARY KEY, id_pago INT REFERENCES pago(id), id_inventario INT REFERENCES inventario(id), fecha DATE NOT NULL DEFAULT NOW());
-CREATE TABLE historial_precio (id SERIAL PRIMARY KEY, id_inventario INT REFERENCES inventario(id) NOT NULL, fecha DATE NOT NULL DEFAULT NOW(), precio DECIMAL(2) NOT NULL);
+CREATE TABLE historial_precio (id SERIAL PRIMARY KEY, id_inventario INT REFERENCES inventario(id) ON DELETE CASCADE NOT NULL, fecha DATE NOT NULL DEFAULT NOW(), precio DECIMAL(2) NOT NULL);

@@ -95,6 +95,31 @@
       return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getAllAvailable() {
+      try {
+        $q = $this->con->prepare('SELECT * FROM inventario WHERE id_estado = 1');
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          echo  $e->getMessage();
+          return null;         
+      }
+      return $q->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function get($id) {
+      try {
+        $q = $this->con->prepare('SELECT * FROM inventario WHERE id=?');
+        $q->bindParam(1, $id, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          error_log($e->getMessage());
+          return null;         
+      }
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
     public function updateAvailable($id_spec, $quantity) {
       if ($this->getAvailable($id_spec)->cantidad >= $this->getReserved($id_spec)->cantidad + $this->getConsignated($id_spec)->cantidad) {
         try {

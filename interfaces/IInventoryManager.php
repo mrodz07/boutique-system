@@ -6,6 +6,7 @@
     public function getReserved($id_spec);
     public function getSold($id_spec);
     public function getAll();
+    public function getAllAvailable();
     public function updateAvailable($id_spec, $quantity);
     public function updateConsignated($id_spec, $quantity);
     public function updateReserved($id_spec, $quantity);
