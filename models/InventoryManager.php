@@ -12,7 +12,7 @@
 
     public static function getInstance() {
       if (self::$instance === null) {
-        self::$instance = new ItemManager();
+        self::$instance = new InventoryManager();
       }
 
       return self::$instance;
@@ -26,9 +26,22 @@
         $this->con->close();
       } catch(PDOException $e) {
           echo  $e->getMessage();
-          return false;         
+          return null;         
       }
-      return true;
+      return $q->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getPrice($id_spec) {
+      try {
+        $q = $this->con->prepare('SELECT precio FROM inventario WHERE id_especificacion = ? AND id_estado = 1');
+        $q->bindParam(1, $id_spec, PDO::PARAM_INT);
+        $q->execute();
+        $this->con->close();
+      } catch(PDOException $e) {
+          echo  $e->getMessage();
+          return null;         
+      }
+      return $q->fetch(PDO::FETCH_OBJ);
     }
 
     public function getConsignated($id_spec) {
@@ -39,9 +52,9 @@
         $this->con->close();
       } catch(PDOException $e) {
           echo  $e->getMessage();
-          return false;         
+          return null;         
       }
-      return true;
+      return $q->fetch(PDO::FETCH_OBJ);
     }
 
     public function getReserved($id_spec) {
@@ -52,9 +65,9 @@
         $this->con->close();
       } catch(PDOException $e) {
           echo  $e->getMessage();
-          return false;         
+          return null;         
       }
-      return true;
+      return $q->fetch(PDO::FETCH_OBJ);
     }
 
     public function getSold($id_spec) {
@@ -65,9 +78,9 @@
         $this->con->close();
       } catch(PDOException $e) {
           echo  $e->getMessage();
-          return false;         
+          return null;         
       }
-      return true;
+      return $q->fetch(PDO::FETCH_OBJ);
     }
 
     public function getAll() {
@@ -77,15 +90,15 @@
         $this->con->close();
       } catch(PDOException $e) {
           echo  $e->getMessage();
-          return false;         
+          return null;         
       }
-      return true;
+      return $q->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function updateAvailable($id_spec, $quantity) {
-      if (getAvailable()->cantidad > getReserved()->cantidad + getConsignated()->cantidad) {
+      if ($this->getAvailable($id_spec)->cantidad >= $this->getReserved($id_spec)->cantidad + $this->getConsignated($id_spec)->cantidad) {
         try {
-          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_spec=? AND id_estado = 1');
+          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_especificacion=? AND id_estado = 1');
           $q->bindParam(1, $quantity, PDO::PARAM_INT);
           $q->bindParam(2, $id_spec, PDO::PARAM_INT);
           $q->execute();
@@ -101,9 +114,9 @@
     }
 
     public function updateConsignated($id_spec, $quantity) {
-      if (getReserved()->cantidad + getConsignated()->cantidad <= getAvailable()->cantidad) {
+      if ($this->getReserved($id_spec)->cantidad + $this->getConsignated($id_spec)->cantidad <= $this->getAvailable($id_spec)->cantidad) {
         try {
-          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_spec=? AND id_estado = 2');
+          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_especificacion=? AND id_estado = 2');
           $q->bindParam(1, $quantity, PDO::PARAM_INT);
           $q->bindParam(2, $id_spec, PDO::PARAM_INT);
           $q->execute();
@@ -119,9 +132,9 @@
     }
 
     public function updateReserved($id_spec, $quantity) {
-      if (getReserved()->cantidad + getConsignated()->cantidad <= getAvailable()->cantidad) {
+      if ($this->getReserved($id_spec)->cantidad + this->getConsignated($id_spec)->cantidad <= $this->getAvailable($id_spec)->cantidad) {
         try {
-          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_spec=? AND id_estado = 3');
+          $q = $this->con->prepare('UPDATE inventario SET cantidad = ? WHERE id_especificacion=? AND id_estado = 3');
           $q->bindParam(1, $quantity, PDO::PARAM_INT);
           $q->bindParam(2, $id_spec, PDO::PARAM_INT);
           $q->execute();
@@ -134,6 +147,20 @@
       } else {
         return false;
       }
+    }
+
+    public function updatePrice($id_spec, $price) {
+        try {
+          $q = $this->con->prepare('UPDATE inventario SET precio = ? WHERE id_especificacion=? AND id_estado = 1');
+          $q->bindParam(1, $price, PDO::PARAM_INT);
+          $q->bindParam(2, $id_spec, PDO::PARAM_INT);
+          $q->execute();
+          $this->con->close();
+        } catch(PDOException $e) {
+            error_log($e->getMessage());
+            return false;         
+        }
+      return true;
     }
 
     public function deleteItem($id_spec) {

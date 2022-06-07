@@ -4,7 +4,6 @@
   $userManager = UserManager::getInstance();
   $username = $_SESSION['username'];
 
-  session_start();
   if (!isset($_SESSION['username'])) {
     $error = "Entra a tu cuenta antes de acceder al sistema";
     // User is not logged in, so send user away.
@@ -42,17 +41,16 @@
       }
     ?>
     <?php
+      require_once "../models/InventoryManager.php";
       require_once "../models/ItemManager.php";
+      $inventoryManager = InventoryManager::getInstance();
       $itemManager = ItemManager::getInstance();
 
-      $items = $itemManager->getAllSpec();        
+      $items = $inventoryManager->getAll();        
       echo "<div class='user-menu-container'> <div class='greeting'>Bienvenido $username</div> <div class='user-menu'> <a class='button menu' href='/app/sale_list.php'>Ventas</a> <a class='button menu' href='/app/inventory_list.php'>Inventario</a> <a class='button menu' href='/app/item_option_list.php'>Artículos</a> <a class='button menu' href='/app/user_list.php'>Usuarios</a> <a class='button menu' href='/app/general_stats.php'>Estadísticas</a> <a class='button menu' href='/app/user_close.php'>Cerrar sesión</a>  </div> </div>";
     ?>
     <div class="container-full">
       <h2 class="main-title">Lista de artículos en inventario</h2>
-          <div class="button-container">
-            <a class="button info" href="/app/inventory_add.php">Añadir artículo</a>
-          </div>
           <?php if(!empty($items)) { ?>
           <div>
             <table class="table">
@@ -62,37 +60,25 @@
                 <th>Estado</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
-                <th>Fehca Ingreso</th>
+                <th>Fecha Ingreso</th>
                 <th>Opciones</th>
               </tr>
               
-              <?php foreach($items as $item) { ?>
+              <?php foreach($items as $item) { 
+                $tmp_spec = $itemManager->getSpec($item->id_especificacion);
+              ?>
+                
                 <tr>
                   <td><?php echo $item->id ?></td>
-                  <td><?php echo $itemManager->getProduct($item->id_producto)->nombre ?></td>
-                  <td><?php echo $itemManager->getBrand($item->id_marca)->nombre ?></td>
-                  <td><?php echo ($item->id_temporada == NULL) ? "Cualquiera" : $itemManager->getSeason($item->id_temporada)->nombre ?></td>
-                  <td><?php echo $itemManager->getCategory($item->id_categoria)->nombre ?></td>
-                  <td><?php echo $itemManager->getGender($item->id_genero)->nombre ?></td>
+                  <td><?php echo "ID: " . $tmp_spec->id . " " . $itemManager->getProduct($tmp_spec->id_producto)->nombre . " " . $itemManager->getBrand($tmp_spec->id_marca)->nombre . " "?></td>
+                  <td><?php echo $itemManager->getState($item->id_estado)->nombre ?></td>
+                  <td><?php echo $item->cantidad ?></td>
+                  <td><?php echo ($item->id_estado == 1) ? $item->precio : "No aplica" ?></td>
+                  <td><?php echo $item->fecha_ingreso ?></td>
                   <td>
-                    <div class="color-cube-container">
-                      <div class="color-cube" style="background-color: #<?php echo $itemManager->getColorTone($item->id_color_tono)->valor_hexadecimal?>;">
-                      </div>
-                      <div>
-                        <?php echo $itemManager->getColor($itemManager->getColorTone($item->id_color_tono)->id_color)->nombre . " " . $itemManager->getTone($itemManager->getColorTone($item->id_color_tono)->id_tono)->nombre ?>
-                      </div>
-                    </div>
-                  </td>
-                  <td><?php echo $itemManager->getSize($itemManager->getSizeStage($item->id_talla_etapa)->id_talla)->nombre . " " . $itemManager->getStage($itemManager->getSizeStage($item->id_talla_etapa)->id_etapa)->nombre ?></td>
-                  <td style='margin: 0; padding: 0;'>
-                    <div class='item-desc-container'>
-                      <p class='item-desc'> <?php echo $item->descripcion ?> </p>
-                    </div>
-                  </td>
-                  <td class='option-menu-container'>
-                      <a class="button info option-menu" href="/app/item_details.php?id=<?php echo $item->id ?>">Detalles</a> 
-                      <a class="button info option-menu" href="/app/item_edit.php?id=<?php echo $item->id ?>">Editar</a> 
-                      <a class="button info option-menu" href="/app/item_delete.php?id=<?php echo $item->id ?>">Borrar</a>
+                  <?php if($item->id_estado == 1) { ?>
+                      <a class="button info" href="/app/inventory_edit.php?id=<?php echo $tmp_spec->id ?>">Editar</a> 
+                  <?php } ?>
                   </td>
                 </tr>
               <?php } ?>
@@ -101,7 +87,7 @@
           <?php
             } else {
           ?>
-            <div class="msg alert">Hay 0 artículos registrados</div>
+            <div class="msg alert">Hay 0 artículos en el inventario. Agrega artículos para poblar esta sección</div>
           <?php
             }
           ?>
