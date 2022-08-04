@@ -1,6 +1,0 @@
--- Función que agregue una venta de entrada y una de salida 
--- Trigger que cada que se cambie o inserte algun valor de inventario meta una entrada a historial_precio
--- Función de venta (que revise las entradas de apartado y que las reste del total)
--- Trigger que revise que no puedan haber más entradas de apartado que cantidad
--- Agregar restricción de no aceptar números negativos donde se lidie con cantidades y dinero
--- Función para encontrar cuánto costo un producto cuando se vendio
