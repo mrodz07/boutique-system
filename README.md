@@ -1,11 +1,11 @@
-# Proyecto de bases de datos
+# Point of sale system
 
-Este fue un proyecto que desarrollé para una boutique. Se basa en tecnologías web y PHP con un paradigma orientado a objetos.
+A project made for a boutique. Made with PHP with a OOP paradigm.
 
-# Cómo ejecutar la aplicación
+# How to run the application
 
-1. Poner los archivos del proyecto en la raíz del servidor web.
-2. Importar los 'dumps' de las bases de datos encontrados en la carpeta 'db' del proyecto
-3. Cambiar los archivos dentro de 'db' con terminación '.ini' para ajustarlos a los servidores de 'mysql' y 'postgres' locales.
-4. Ingresar a la aplicación visitando 'localhost' desde cualquier navegador web
-5. Iniciar sesión como usuario 'admin' y contraseña 'admin' (esto debe cambiarse)
+1. Add the project files to the root of your web server
+2. Import the database dump to your mysql database
+3. Customize the application by modifying the '.ini' files inside the 'db' directory with your local values
+4. Access the application by 'visiting' the localhost
+5. Start session as 'admin' with password 'admin' (This has to be changed)
